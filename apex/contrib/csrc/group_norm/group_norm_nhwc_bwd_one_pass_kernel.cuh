@@ -214,7 +214,7 @@ __global__ __launch_bounds__(THREADS_PER_BLOCK_) void group_norm_nhwc_bwd_one_pa
         mean_2 += dx_norm_x + dx_norm_y;
       }
     }
-#endif // __CUDA_ARCH__ / 100 == 11 || __CUDA_ARCH__ / 100 == 12
+#endif  // __CUDA_ARCH__ / 100 == 11 || __CUDA_ARCH__ / 100 == 12
 
     // Pack valid gradients.
     float2 sums = make_float2(0.f, 0.f);
@@ -390,7 +390,7 @@ __global__ __launch_bounds__(THREADS_PER_BLOCK_) void group_norm_nhwc_bwd_one_pa
         *reinterpret_cast<IOType2*>(&dx_ptr[hwj * params.c]) = IOTraits::pack(dx);
       }
     }
-#endif // __CUDA_ARCH__ / 100 == 11 || __CUDA_ARCH__ / 100 == 12
+#endif  // __CUDA_ARCH__ / 100 == 11 || __CUDA_ARCH__ / 100 == 12
   }
 
   // The completion barrier.
