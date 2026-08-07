@@ -128,7 +128,7 @@ void group_norm_nhwc_bwd_one_pass_setup(Group_norm_nhwc_bwd_params& params, size
   // The number of blocks per grid.
   int max_blocks_per_grid = blocks_per_sm * props.multiProcessorCount;
 
-  if (props.major == 11 || props.major == 12) {
+  if (props.major == 8 || props.major == 11 || props.major == 12) {
     // Cooperative kernels require all blocks to be resident concurrently. Blocks process
     // additional activation tiles in a grid-stride loop when the full grid does not fit.
     blocks_per_slice = std::min(blocks_per_slice, max_blocks_per_grid);

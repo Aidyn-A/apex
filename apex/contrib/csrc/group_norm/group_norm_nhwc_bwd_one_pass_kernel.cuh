@@ -352,7 +352,7 @@ __global__ __launch_bounds__(THREADS_PER_BLOCK_) void group_norm_nhwc_bwd_one_pa
       }
     }
 
-#if __CUDA_ARCH__ / 100 == 11 || __CUDA_ARCH__ / 100 == 12
+#if __CUDA_ARCH__ / 100 == 8 || __CUDA_ARCH__ / 100 == 11 || __CUDA_ARCH__ / 100 == 12
     // Store gradients for any additional activation tiles assigned to this block.
     for (int extra_hwi = hwi + gridDim.x * params.acts_per_block; extra_hwi < params.hw;
          extra_hwi += gridDim.x * params.acts_per_block) {
@@ -390,7 +390,7 @@ __global__ __launch_bounds__(THREADS_PER_BLOCK_) void group_norm_nhwc_bwd_one_pa
         *reinterpret_cast<IOType2*>(&dx_ptr[hwj * params.c]) = IOTraits::pack(dx);
       }
     }
-#endif  // __CUDA_ARCH__ / 100 == 11 || __CUDA_ARCH__ / 100 == 12
+#endif  // __CUDA_ARCH__ / 100 == 8 || __CUDA_ARCH__ / 100 == 11 || __CUDA_ARCH__ / 100 == 12
   }
 
   // The completion barrier.
