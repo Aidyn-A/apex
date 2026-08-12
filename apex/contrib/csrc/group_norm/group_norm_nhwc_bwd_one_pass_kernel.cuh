@@ -173,7 +173,7 @@ __global__ __launch_bounds__(THREADS_PER_BLOCK_) void group_norm_nhwc_bwd_one_pa
       mean_2 += dx_norm_y;
     }
 
-#if __CUDA_ARCH__ / 100 == 11 || __CUDA_ARCH__ / 100 == 12
+#if __CUDA_ARCH__ / 100 == 8 || __CUDA_ARCH__ / 100 == 11 || __CUDA_ARCH__ / 100 == 12
     // A cooperative launch may use fewer blocks than activation tiles. Accumulate any
     // additional tiles assigned to this block without increasing its register footprint.
     for (int extra_hwi = hwi + gridDim.x * params.acts_per_block; extra_hwi < params.hw;
@@ -214,7 +214,7 @@ __global__ __launch_bounds__(THREADS_PER_BLOCK_) void group_norm_nhwc_bwd_one_pa
         mean_2 += dx_norm_x + dx_norm_y;
       }
     }
-#endif  // __CUDA_ARCH__ / 100 == 11 || __CUDA_ARCH__ / 100 == 12
+#endif  // __CUDA_ARCH__ / 100 == 8 || __CUDA_ARCH__ / 100 == 11 || __CUDA_ARCH__ / 100 == 12
 
     // Pack valid gradients.
     float2 sums = make_float2(0.f, 0.f);
